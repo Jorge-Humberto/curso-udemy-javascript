@@ -921,3 +921,5 @@ const capitalizeName = function (name) {
 capitalizeName('jessica ann smith davis');
 capitalizeName('jorge humberto');
 capitalizeName('pedro picapiedRa');
+
+// trabajando desde otra computadora
