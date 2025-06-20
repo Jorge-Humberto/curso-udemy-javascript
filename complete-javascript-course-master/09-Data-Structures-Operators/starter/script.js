@@ -912,8 +912,9 @@ const capitalizeName = function (name) {
   const namesUpper = [];
   for (const n of names) {
     // namesUpper.push(n[0].toUpperCase() + n.slice(1));
-    const newN = n.toLowerCase();
-    namesUpper.push(newN.replace(newN[0], newN[0].toUpperCase()));
+    // const newN = n.toLowerCase();
+    // namesUpper.push(newN.replace(newN[0], newN[0].toUpperCase()));
+    namesUpper.push(n.replace(n[0], n[0].toUpperCase()));
   }
   console.log(namesUpper.join(' '));
 };
@@ -922,4 +923,35 @@ capitalizeName('jessica ann smith davis');
 capitalizeName('jorge humberto');
 capitalizeName('pedro picapiedRa');
 
-// trabajando desde otra computadora
+// Padding
+const message = 'Go to gate 23!';
+console.log(message.padStart(25, '+').padEnd(30, '+'));
+console.log('jonas'.padStart(25, '+').padEnd(30, '+'));
+
+const maskCredictCard = function (number) {
+  const str = number + '';
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+};
+
+console.log(maskCredictCard(34566653324535));
+console.log(maskCredictCard(34566654795898473325));
+console.log(maskCredictCard('233454485u09248530825430525254'));
+
+// Repeat
+const message2 = 'Bad weater... All departures Delayed...\n';
+console.log(message2.repeat(5));
+
+const planesInLine = function (number) {
+  console.log(`There are ${number} planes in line ${'🛩️'.repeat(number)}`);
+};
+
+planesInLine(5);
+planesInLine(3);
+planesInLine(12);
+
+// --
+// || ******************************************
+// LEC >> 131 - Challenge #4
+// // || ******************************************
+// VV
