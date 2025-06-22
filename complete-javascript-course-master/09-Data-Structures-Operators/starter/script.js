@@ -898,13 +898,13 @@ const checkBaggage = function (items) {
 // // || ******************************************
 // VV
 
-console.log('a+very+nice+string'.split('+'));
-console.log('Jorge Humberto'.split(' '));
+// console.log('a+very+nice+string'.split('+'));
+// console.log('Jorge Humberto'.split(' '));
 
 const [firstName, lastName] = 'Jorge Humberto'.split(' ');
 
 const newName = ['Mr.', firstName, lastName.toUpperCase()].join(' ');
-console.log(newName);
+// console.log(newName);
 
 const capitalizeName = function (name) {
   const names = name.split(' ');
@@ -919,14 +919,14 @@ const capitalizeName = function (name) {
   console.log(namesUpper.join(' '));
 };
 
-capitalizeName('jessica ann smith davis');
-capitalizeName('jorge humberto');
-capitalizeName('pedro picapiedRa');
+// capitalizeName('jessica ann smith davis');
+// capitalizeName('jorge humberto');
+// capitalizeName('pedro picapiedRa');
 
 // Padding
 const message = 'Go to gate 23!';
-console.log(message.padStart(25, '+').padEnd(30, '+'));
-console.log('jonas'.padStart(25, '+').padEnd(30, '+'));
+// console.log(message.padStart(25, '+').padEnd(30, '+'));
+// console.log('jonas'.padStart(25, '+').padEnd(30, '+'));
 
 const maskCredictCard = function (number) {
   const str = number + '';
@@ -934,24 +934,61 @@ const maskCredictCard = function (number) {
   return last.padStart(str.length, '*');
 };
 
-console.log(maskCredictCard(34566653324535));
-console.log(maskCredictCard(34566654795898473325));
-console.log(maskCredictCard('233454485u09248530825430525254'));
+// console.log(maskCredictCard(34566653324535));
+// console.log(maskCredictCard(34566654795898473325));
+// console.log(maskCredictCard('233454485u09248530825430525254'));
 
 // Repeat
 const message2 = 'Bad weater... All departures Delayed...\n';
-console.log(message2.repeat(5));
+// console.log(message2.repeat(5));
 
 const planesInLine = function (number) {
-  console.log(`There are ${number} planes in line ${'🛩️'.repeat(number)}`);
+  // console.log(`There are ${number} planes in line ${'🛩️'.repeat(number)}`);
 };
 
-planesInLine(5);
-planesInLine(3);
-planesInLine(12);
+// planesInLine(5);
+// planesInLine(3);
+// planesInLine(12);
 
 // --
 // || ******************************************
 // LEC >> 131 - Challenge #4
 // // || ******************************************
 // VV
+
+const camelCase = function (input) {
+  // const strLowerCase = input.toLowerCase();
+  // console.log(strLowerCase);
+  // const words = [];
+  // words.push(...strLowerCase.split('_'));
+  // console.log(words);
+  // const secondWord = words[1].toUpperCase();
+  // const finalWord = words[0] + secondWord;
+  // console.log(finalWord);
+};
+
+// console.log(camelCase('underscore_case'));
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+
+document.querySelector('button').addEventListener('click', function () {
+  const text = document.querySelector('textarea').value;
+  const rows = text.split('\n');
+
+  for (const [i, row] of rows.entries()) {
+    const [first, second] = row.toLowerCase().trim().split('_');
+
+    const output = `${first}${second.replace(
+      second[0],
+      second[0].toUpperCase()
+    )}`;
+    console.log(`${output.padEnd(20)}${'👍'.repeat(i + 1)}`);
+  }
+});
+
+// underscore_case;
+// first_name;
+// Some_Variable;
+// calculate_AGE;
+// delayed_departure;

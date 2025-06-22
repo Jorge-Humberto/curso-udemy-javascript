@@ -1119,9 +1119,27 @@ const getKeywordsAsString = function (books) {
   }
   const setAllKeywords = new Set(allKeywords);
   // let strKeyword = "";
-  console.log([...setAllKeywords].join(";"));
+  // console.log([...setAllKeywords].join(";"));
   // for (let keyword of setAllKeywords) {
   //   console.log(keyword);
   // }
 };
 getKeywordsAsString(books);
+
+// 17.3
+const bookChapters = [
+  ["The Basics", 14],
+  ["Sorting", 254],
+  ["Searching", 372],
+  ["Graphs", 526],
+  ["Strings", 706],
+];
+
+const logBookChapters = function (array) {
+  for (const [title, pages] of array) {
+    // console.log(`${title}`.padEnd(20, "_") + `${pages}`);
+    console.log(title.padEnd(20, "_") + " " + pages);
+  }
+};
+
+console.log(logBookChapters(bookChapters));
