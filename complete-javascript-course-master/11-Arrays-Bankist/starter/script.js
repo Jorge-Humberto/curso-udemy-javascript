@@ -65,7 +65,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -188,9 +188,29 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // // || ******************************************
 // VV
 
+// const displayMovements = function (movements) {
+//   containerMovements.innerHTML = '';
+
+//   movements.forEach(function (mov, i) {
+//     const type = mov > 0 ? 'deposit' : 'withdrawal';
+
+//     const html = `
+//       <div class="movements__row">
+//         <div class="movements__type movements__type--${type}">${
+//       i + 1
+//     } ${type}</div>
+//         <div class="movements__value">${mov}</div>
+//       </div>
+//     `;
+//     containerMovements.insertAdjacentHTML('afterbegin', html);
+//   });
+// };
+// displayMovements(account1.movements);
+
+// console.log(containerMovements.innerHTML);
+
 const displayMovements = function (movements) {
   containerMovements.innerHTML = '';
-
   movements.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
@@ -202,9 +222,58 @@ const displayMovements = function (movements) {
         <div class="movements__value">${mov}</div>
       </div>
     `;
+
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
 displayMovements(account1.movements);
 
-console.log(containerMovements.innerHTML);
+// --
+// || ******************************************
+// LEC >> 155 - CHALLENGE #1
+// // || ******************************************
+// VV
+
+const checkDogs = function (dogsJulia, dogsKate) {
+  const dogsJuliaCorrected = dogsJulia.slice();
+  dogsJuliaCorrected.splice(0, 1);
+  dogsJuliaCorrected.splice(-2);
+  // dogsJulia.slice(1,3);
+  const dogs = dogsJuliaCorrected.concat(dogsKate);
+
+  dogs.forEach(function (ageDog, i) {
+    const checkAge =
+      ageDog >= 3
+        ? `Dog number ${i + 1} is an adult, and is ${ageDog} years old`
+        : `Dog number ${i + 1} is still a puppy 🐶`;
+    console.log(checkAge);
+  });
+};
+// checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+// checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+
+// --
+// || ******************************************
+// LEC >> 156 - Data Transformation: map, filter, reduce
+// // || ******************************************
+// VV
+
+// --
+// || ******************************************
+// LEC >> 157 - The map Method
+// // || ******************************************
+// VV
+
+const eurToUsd = 1.1;
+
+// const movementsUSD = movements.map(function (mov) {
+//   return mov * eurToUsd;
+// });
+const movementsUSD = movements.map(mov => mov * eurToUsd);
+
+console.log(movements);
+console.log(movementsUSD);
+
+// const movementsUSDfor = [];
+// for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+// console.log(movementsUSDfor);
