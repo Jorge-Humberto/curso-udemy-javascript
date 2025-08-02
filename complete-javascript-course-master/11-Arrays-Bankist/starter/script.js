@@ -219,7 +219,7 @@ const displayMovements = function (movements) {
         <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-        <div class="movements__value">${mov}</div>
+        <div class="movements__value">${mov}€</div>
       </div>
     `;
 
@@ -264,12 +264,12 @@ const checkDogs = function (dogsJulia, dogsKate) {
 // // || ******************************************
 // VV
 
-const eurToUsd = 1.1;
+// const eurToUsd = 1.1;
 
 // const movementsUSD = movements.map(function (mov) {
 //   return mov * eurToUsd;
 // });
-const movementsUSD = movements.map(mov => mov * eurToUsd);
+// const movementsUSD = movements.map(mov => mov * eurToUsd);
 
 // console.log(movements);
 // console.log(movementsUSD);
@@ -352,3 +352,78 @@ const calcDisplayBalance = function (movements) {
   labelBalance.textContent = `${balance} EUR`;
 };
 calcDisplayBalance(account1.movements);
+
+// Maximum value
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+// console.log(max);
+
+// --
+// || ******************************************
+// LEC >> 161 - Challenge #2
+// // || ******************************************
+// VV
+
+const agesDogs = [5, 2, 4, 1, 15, 8, 3];
+// data_2 = [16, 6, 10, 5, 6, 1, 4];
+
+// const calcAverageHumanAge = agesDogs.map(function (dogAge) {
+//   let humanAge = 0;
+//   if (dogAge <= 2) {
+//     humanAge = 2 * dogAge;
+//   } else {
+//     humanAge = 16 + dogAge * 4;
+//   }
+//   humanAge.filter(function (age) {
+//     return age > 18;
+//   });
+// });
+
+// console.log(calcAverageHumanAge);
+
+const calcAverageHumanAge = function (ages) {
+  const humanAges = ages.map(age => (age <= 2 ? 2 * age : 16 + age * 4));
+  const adultDogs = humanAges.filter(age => age >= 18);
+  console.log(humanAges);
+  console.log(adultDogs);
+
+  // const average =
+  //   adultDogs.reduce((acc, age) => acc + age, 0) / adultDogs.length;
+
+  const average = adultDogs.reduce(
+    (acc, age, i, arr) => acc + age / arr.length,
+    0
+  );
+
+  return average;
+};
+// const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+// const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+// console.log(avg1, avg2);
+
+// --
+// || ******************************************
+// LEC >> 162 - The Magic the Chaining Methods
+// // || ******************************************
+// VV
+const eurToUsd = 1.1;
+
+// PIPELINE
+const totalDepositsUSD = movements
+  .filter(mov => mov > 0)
+  .map((mov, i, arr) => {
+    // console.log(arr);
+    return mov * eurToUsd;
+  })
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(totalDepositsUSD);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+};
+calcDisplaySummary(account1.movements);
