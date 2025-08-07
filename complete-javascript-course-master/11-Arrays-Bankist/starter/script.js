@@ -332,7 +332,7 @@ const withdrawal = movements.filter(mov => mov <= 0);
 // // || ******************************************
 // VV
 
-console.log(movements);
+// console.log(movements);
 
 // accumulator ->   SNOWBALL
 // const balance = movements.reduce(function (acc, cur, i, arr) {
@@ -349,7 +349,7 @@ for (const mov of movements) balance2 += mov;
 
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} EUR`;
+  labelBalance.textContent = `${balance} €`;
 };
 calcDisplayBalance(account1.movements);
 
@@ -413,17 +413,77 @@ const eurToUsd = 1.1;
 // PIPELINE
 const totalDepositsUSD = movements
   .filter(mov => mov > 0)
+  //.map(mov => mov * euroToUsd)
   .map((mov, i, arr) => {
     // console.log(arr);
     return mov * eurToUsd;
   })
   .reduce((acc, mov) => acc + mov, 0);
-console.log(totalDepositsUSD);
+// console.log(totalDepositsUSD);
 
 const calcDisplaySummary = function (movements) {
   const incomes = movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
+
+  const outs = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(outs)}€`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      // console.log(arr);
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
 };
 calcDisplaySummary(account1.movements);
+
+// --
+// || ******************************************
+// LEC >> 163 - CHALLENGE #3
+// // || ******************************************
+// VV
+
+const calcAverageHumanAgeArrow = ages =>
+  ages
+    .map(age => (age <= 2 ? 2 * age : 16 + age * 4))
+    .filter(age => age >= 18)
+    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+
+const avg1 = calcAverageHumanAgeArrow([5, 2, 4, 1, 15, 8, 3]);
+const avg2 = calcAverageHumanAgeArrow([16, 6, 10, 5, 6, 1, 4]);
+
+// console.log(avg1, avg2);
+
+// --
+// || ******************************************
+// LEC >> 164 - The Find Method
+// // || ******************************************
+// VV
+
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(movements);
+console.log(firstWithdrawal);
+
+console.log(accounts);
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
+
+// --
+// || ******************************************
+// LEC >> 165 - Implementing Login
+// // || ******************************************
+// VV
+
+btnLogin.addEventListener('click', function (e) {
+  //Prevent form from submitting
+  e.preventDefault();
+
+  console.log('LOGIN');
+});
