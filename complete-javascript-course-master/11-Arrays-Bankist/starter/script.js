@@ -347,11 +347,11 @@ let balance2 = 0;
 for (const mov of movements) balance2 += mov;
 // console.log(balance2);
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} €`;
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${acc.balance} €`;
 };
-calcDisplayBalance(account1.movements);
+// calcDisplayBalance(account1.movements);
 
 // Maximum value
 const max = movements.reduce((acc, mov) => {
@@ -421,20 +421,20 @@ const totalDepositsUSD = movements
   .reduce((acc, mov) => acc + mov, 0);
 // console.log(totalDepositsUSD);
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (acc) {
+  const incomes = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${incomes}€`;
 
-  const outs = movements
+  const outs = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = `${Math.abs(outs)}€`;
 
-  const interest = movements
+  const interest = acc.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
       // console.log(arr);
       return int >= 1;
@@ -442,7 +442,7 @@ const calcDisplaySummary = function (movements) {
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `${interest}€`;
 };
-calcDisplaySummary(account1.movements);
+// calcDisplaySummary(account1.movements);
 
 // --
 // || ******************************************
@@ -468,12 +468,12 @@ const avg2 = calcAverageHumanAgeArrow([16, 6, 10, 5, 6, 1, 4]);
 // VV
 
 const firstWithdrawal = movements.find(mov => mov < 0);
-console.log(movements);
-console.log(firstWithdrawal);
+// console.log(movements);
+// console.log(firstWithdrawal);
 
-console.log(accounts);
+// console.log(accounts);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
-console.log(account);
+// console.log(account);
 
 // --
 // || ******************************************
@@ -481,9 +481,67 @@ console.log(account);
 // // || ******************************************
 // VV
 
+// Event handler
+let currentAccount;
+
 btnLogin.addEventListener('click', function (e) {
   //Prevent form from submitting
   e.preventDefault();
 
-  console.log('LOGIN');
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and welcome message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 1;
+
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    // Display movements
+    displayMovements(currentAccount.movements);
+
+    // Display balance
+    calcDisplayBalance(currentAccount);
+
+    // Display summary
+    calcDisplaySummary(currentAccount);
+
+    // console.log('LOGIN');
+    // console.log(currentAccount.pin);
+    // console.log(Number(inputLoginPin.value));
+    // console.log(typeof currentAccount.pin);
+    // console.log(typeof Number(inputLoginPin.value));
+    // console.log(currentAccount.pin === Number(inputLoginPin.value));
+  }
+});
+
+// --
+// || ******************************************
+// LEC >> 166 - Implementing Transfers
+// // || ******************************************
+// VV
+
+btnTransfer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value
+  );
+  console.log(amount, receiverAcc);
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    console.log('Transfer valid');
+  }
 });
